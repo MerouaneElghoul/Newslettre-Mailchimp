@@ -40,16 +40,19 @@ app.post("/", function(req, res) {
             'Authorization': 'apikey e87516484389ff5ea081440b4945a5bd-us7'
         }
     }, function(error, response, body) {
-        if (error) {
-            console.log(error);
-        } else {
+        if (response.statusCode === 200) {
             console.log(response.statusCode, '>>>>> USER ADDED TO MAILCHIMP');
-            res.send("Success");
+            res.sendFile(__dirname + "/success.html");
+
+        } else {
+            res.sendFile(__dirname + "/failure.html");
 
 
 
         }
     });
+
+
 
     /* const data = {
          members: [{
@@ -97,6 +100,12 @@ app.post("/", function(req, res) {
       request.write(jsonData);
       request.end();*/
 });
+
+app.post("/failure", function(req, res) {
+
+    res.redirect("/");
+
+})
 
 
 
